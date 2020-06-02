@@ -1,0 +1,19 @@
+<div class="slds-context-bar">
+    <div class="slds-context-bar__primary">
+        <div
+            class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click slds-no-hover">
+            <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                <span class="slds-truncate" title="Music Data">Music Data</span></span>
+        </div>
+    </div>
+    <nav class="slds-context-bar__secondary" role="navigation">
+        <ul class="slds-grid">
+            <li *ngFor="let menuItem of menuItems" class="slds-context-bar__item" [routerLink]="menuItem.path" routerLinkActive="slds-is-active">
+                <a class="slds-context-bar__label-action" [title]="menuItem.title">
+                    <span class="slds-assistive-text">{{menuItem.title}}</span>
+                    <span class="slds-truncate" [title]="menuItem.title">{{menuItem.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { MenuService } from './menu/menu.service';
 
-
-const routes: Routes = [];
+const routes = MenuService.getRoutes();
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
