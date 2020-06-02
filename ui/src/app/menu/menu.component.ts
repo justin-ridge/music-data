@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from './menu.service';
+import { ContentService } from '../content.service';
 import { MenuItem } from './menu-item';
 
 @Component({
@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
   public menuItems: MenuItem[];
 
   ngOnInit(): void {
-    this.menuItems = MenuService.getMenuItems();
+    this.menuItems = ContentService.getMenuItems();
   }
 
 }
