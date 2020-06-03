@@ -9,7 +9,8 @@ export class CategoryService {
 
   constructor() { }
 
-  public static active: number;
+  public static active: number = 0;
+  public static overviewActive: number = 0;
 
   public static getOverviewItems(): Overview[] {
     return [

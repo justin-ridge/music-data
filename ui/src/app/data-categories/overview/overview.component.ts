@@ -9,12 +9,18 @@ import { CategoryService } from '../category.service';
 })
 export class OverviewComponent implements OnInit {
 
-  public active: number;
   public overviewItems: Overview[];
 
   constructor() { 
-    this.active = 0;
     this.overviewItems = [];
+  }
+
+  public get active(): number {
+    return CategoryService.overviewActive;
+  }
+
+  public set active(val: number) {
+    CategoryService.overviewActive = val;
   }
 
   ngOnInit(): void {

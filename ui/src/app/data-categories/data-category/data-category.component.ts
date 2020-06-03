@@ -10,6 +10,7 @@ import { CategoryService } from '../category.service'
 export class DataCategoryComponent implements OnInit {
 
   @Input() category: Category;
+  
   public get active(): number {
     return CategoryService.active;
   }

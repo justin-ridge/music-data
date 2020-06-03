@@ -10,14 +10,14 @@ import { CategoryService } from './category.service';
 export class DataCategoriesComponent implements OnInit {
 
   public categories: Category[];
-  public selectedTab: any = 'Overview';
   public variant = 'scoped';
+  public selectedTab: any = 'Overview';
+
+  constructor() { }
 
   change() {
     this.variant = this.variant === 'scoped' ? null : 'scoped';
   }
-
-  constructor() { }
 
   ngOnInit(): void {
     this.categories = CategoryService.getCategories();
@@ -25,6 +25,7 @@ export class DataCategoriesComponent implements OnInit {
 
   public tabChange(category: Category, event: string) {
     console.log('category', category.number, event);
+    console.log(this.selectedTab);
   }
 
   public categoryHeading(category: Category) {
