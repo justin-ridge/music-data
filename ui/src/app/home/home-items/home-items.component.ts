@@ -16,8 +16,4 @@ export class HomeItemsComponent implements OnInit {
   ngOnInit(): void {
     this.homeItems = ContentService.getHomeItems();
   }
-
-  public link(item: HomeItem): string {
-    return '/' + item.path;
-  }
 }
