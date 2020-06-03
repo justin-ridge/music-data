@@ -1,7 +1,7 @@
 export class HomeItem {
-    title: string;
-    description: string;
-    icon: string;
-    svg: string;
-    path: string;
+    public title: string;
+    public description: string;
+    public icon: string;
+    public svg: string;
+    public path: string;
 }

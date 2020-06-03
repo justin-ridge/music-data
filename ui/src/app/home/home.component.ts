@@ -1,23 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HomeItem } from './home-item';
-import { ContentService } from '../content.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
-  public homeItems: HomeItem[];
+export class HomeComponent  {
 
   constructor() { }
-
-  ngOnInit(): void {
-    this.homeItems = ContentService.getHomeItems();
-  }
-
-  public link(item: HomeItem): string {
-    return '/' + item.path;
-  }
 }

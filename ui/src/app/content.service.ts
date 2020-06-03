@@ -24,7 +24,7 @@ export class ContentService {
     },
     {
       title: 'Song Data',
-      path: 'view-data',
+      path: 'song-data',
       component: ViewDataComponent,
       isContentItem: true,
       description: 'View song data, filter by song attributes, and visualize song characteristics.',

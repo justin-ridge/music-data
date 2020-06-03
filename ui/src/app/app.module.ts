@@ -12,6 +12,7 @@ import { DataCategoriesComponent } from './data-categories/data-categories.compo
 import { ViewDataComponent } from './view-data/view-data.component';
 import { PopularityPredictionComponent } from './popularity-prediction/popularity-prediction.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeItemsComponent } from './home/home-items/home-items.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DataCategoriesComponent,
     ViewDataComponent,
     PopularityPredictionComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HomeItemsComponent
   ],
   imports: [
     BrowserModule,
