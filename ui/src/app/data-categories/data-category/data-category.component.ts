@@ -10,7 +10,8 @@ import { CategoryService } from '../category.service'
 export class DataCategoryComponent implements OnInit {
 
   @Input() category: Category;
-  
+  public categoryGraphs: any[];
+
   public get active(): number {
     return CategoryService.active;
   }
@@ -19,20 +20,9 @@ export class DataCategoryComponent implements OnInit {
     CategoryService.active = val;
   }
 
-  constructor() { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-  }
-
-  public barSrc(): string {
-    return 'assets/images/c' + this.category.number + '_bar.png';
-  }
-
-  public pieSrc(): string {
-    return 'assets/images/c' + this.category.number + '_pie.png';
-  }
-
-  public pieGenreSrc(): string {
-    return 'assets/images/c' + this.category.number + '_pie_genre.png';
+    this.categoryGraphs = this.categoryService.getCategoryGraphs(this.category.number);
   }
 }

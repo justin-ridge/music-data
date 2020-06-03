@@ -1,20 +1,24 @@
 <div class="slds-grid slds-gutters">
-    <div class="slds-col slds-size_1-of-2">
+    <div class="slds-col">
         <div class="carousel-container">
             <ngl-carousel [(active)]="active" [autoScroll]="false">
-                <ngl-carousel-image [src]="barSrc()" header="Attribute Graph"
-                    description="All features of the category." alternativeText="Category features">
-                </ngl-carousel-image>
-                <ngl-carousel-image [src]="pieSrc()" header="Category Average Song Attributes"
-                    description="The average song attributes for this category." alternativeText="Category song attributes">
-                </ngl-carousel-image>
-                <ngl-carousel-image [src]="pieGenreSrc()" header="Category Song Genres"
-                    description="The song genres that comprise this category." alternativeText="Category song genres">
-                </ngl-carousel-image>
+                <ngl-carousel-image *ngFor="let item of categoryGraphs" [src]="item.src" [header]="item.header"
+                    [description]="item.description" [alternativeText]="item.alt"></ngl-carousel-image>
             </ngl-carousel>
         </div>
     </div>
-    <div class="slds-col slds-size_1-of-2">
-        <span>blah blah</span>
+    <div class="slds-col">
+        <div class="slds-button-group" [(nglPick)]="active" nglPickActiveClass="slds-button_brand" role="group">
+            <button *ngFor="let item of categoryGraphs" type="button" nglButton [nglPickOption]="item.index">{{item.header}}</button>
+        </div>
+        <div class="slds-text-heading_large">Category {{(category.number + 1)}}</div>
+        <div class="slds-text-heading_medium">Characterization</div>
+        <p>
+            {{category.characterization}}
+        </p>
+        <div class="slds-text-heading_medium">Analysis</div>
+        <p>
+            {{category.description}}
+        </p>
     </div>
 </div>

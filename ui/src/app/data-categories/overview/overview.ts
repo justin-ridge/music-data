@@ -3,4 +3,5 @@ export class Overview {
     title: string;
     description: string;
     content: string;
+    index;
 }

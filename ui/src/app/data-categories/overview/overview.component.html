@@ -1,14 +1,54 @@
 <div class="slds-grid slds-gutters">
-    <div class="slds-col slds-size_1-of-2">
+    <div class="slds-col">
         <div class="carousel-container">
             <ngl-carousel [(active)]="active" [autoScroll]="false">
                 <ngl-carousel-image *ngFor="let item of overviewItems" [src]="item.image" [header]="item.title"
                     [description]="item.description" [alternativeText]="item.description"></ngl-carousel-image>
             </ngl-carousel>
-            <p>{{activeItemContent}}</p>
+            <div class="bubble">
+                <div class="slds-text-color_inverse">
+                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                        <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#info"></use>
+                    </svg>
+                    {{activeItemContent}}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="slds-col slds-size_1-of-2">
-        <span>blah blah</span>
+    <div class="slds-col">
+        <div class="slds-button-group" [(nglPick)]="active" nglPickActiveClass="slds-button_brand" role="group">
+            <button *ngFor="let item of overviewItems" type="button" nglButton
+                [nglPickOption]="item.index">{{item.title}}</button>
+        </div>
+        <div class="slds-text-heading_large">Overview</div>
+        <p>
+            The goal of data categorization by utilizing unsupervised machine learning algorithms is to
+            identify overlooked relationships in our data, equipping us with more knowledge to make
+            data-driven decisions when considering unknown data points. We had thousands of songs to
+            consider, so a KMeans cluster analysis was an excellent first step towards making sense
+            of our data.
+        </p>
+
+        <p>
+            We utilized the elbow method to determine the optimal number of clusters to generate,
+            and our data suggested that 5 categories would be an ideal balance.
+        </p>
+        <br />
+        <div class="slds-text-heading_large">Conclusions</div>
+        <p>
+            Categories 1 and 5 show the lowest occurence of popular music - songs that share characteristics
+            with these categories can be considered long shots to achieve streaming popularity.
+        </p>
+        <p>
+            Category 3 (children's music) is a relatively smaller cluster, but the frequency of popular songs
+            shows that producing children's music is a safe bet for streaming popularity.
+        </p>
+        <p>
+            Category 4 is the largest category, and also has the highest relative frequency of popular songs.
+            This category is worth exploring on its own in the future - identifying clusters within category 4 itself
+            could help to maximize opportunities for popular streaming investments. Category 2 is smaller but also
+            has a decent frequency of popularity - this group is worth analyzing further as well.
+        </p>
+        <p class="strong">(Click on the category tabs for more detailed information on their characteristics)</p>
     </div>
 </div>
