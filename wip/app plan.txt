@@ -1,0 +1,20 @@
+Home
+Data Preparation - add upload -> clean methods
+- POST cleanData
+- GET rawData
+- GET cleanData
+
+Data Information (Categorization) - views to see categories
+- GET categoryView
+- GET tableView
+
+View Data - add search functionality and view all list
+- GET data (with optional page parameter
+- GET data/search (with search parameter and optional page parameter)
+
+Popularity Prediction - Show information about algorithm, and allow user to input song parameters
+- GET modelInformation - get accuracy score
+- POST predict - post song parameters and get a prediction
+
+Logging
+Input Validation
