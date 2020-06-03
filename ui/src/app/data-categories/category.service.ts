@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from './category';
+import { Overview } from './overview/overview';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,25 @@ import { Category } from './category';
 export class CategoryService {
 
   constructor() { }
+
+  public static active: number;
+
+  public static getOverviewItems(): Overview[] {
+    return [
+      {
+        image: "assets/images/kmeans_cluster.png",
+        title: "KMeans Clustering",
+        description: "First card description.",
+        content: 'This is some content fjdkajflkdsjfjdskla fdjsalkfjds klfjdskal fdsklafj dksajf kldsaj'
+      },
+      {
+        image: "assets/images/kmeans_cluster_target.png",
+        title: "KMeans Clustering - Popularity Target",
+        description: "Second card description.",
+        content: 'This is some second content fjdkajflkdsjfjdskla fdjsalkfjds klfjdskal fdsklafj dksajf kldsaj'
+      }
+    ];
+  }
 
   public static getCategories(): Category[] {
     return [

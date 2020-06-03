@@ -1,0 +1,14 @@
+<div class="slds-grid slds-gutters">
+    <div class="slds-col slds-size_1-of-2">
+        <div class="carousel-container">
+            <ngl-carousel [(active)]="active" [autoScroll]="false">
+                <ngl-carousel-image *ngFor="let item of overviewItems" [src]="item.image" [header]="item.title"
+                    [description]="item.description" [alternativeText]="item.description"></ngl-carousel-image>
+            </ngl-carousel>
+            <p>{{activeItemContent}}</p>
+        </div>
+    </div>
+    <div class="slds-col slds-size_1-of-2">
+        <span>blah blah</span>
+    </div>
+</div>

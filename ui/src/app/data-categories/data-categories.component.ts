@@ -26,4 +26,8 @@ export class DataCategoriesComponent implements OnInit {
   public tabChange(category: Category, event: string) {
     console.log('category', category.number, event);
   }
+
+  public categoryHeading(category: Category) {
+    return 'Category ' + (category.number + 1);
+  }
 }

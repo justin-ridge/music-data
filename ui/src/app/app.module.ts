@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HomeItemsComponent } from './home/home-items/home-items.component';
 import { HomeItemComponent } from './home/home-item/home-item.component';
 import { DataCategoryComponent } from './data-categories/data-category/data-category.component';
+import { OverviewComponent } from './data-categories/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DataCategoryComponent } from './data-categories/data-category/data-cate
     PageNotFoundComponent,
     HomeItemsComponent,
     HomeItemComponent,
-    DataCategoryComponent
+    DataCategoryComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,

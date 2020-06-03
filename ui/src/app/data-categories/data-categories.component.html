@@ -1,7 +1,12 @@
 <ngl-tabset [(selected)]="selectedTab" [variant]="variant">
-    <ng-template ngl-tab label="Overview">You have {{categories.length}} categories.</ng-template>
+    <ngl-tab>
+        <ng-template ngl-tab-label>Overview</ng-template>
+        <ng-template ngl-tab-content>
+          <app-overview></app-overview>
+        </ng-template>
+      </ngl-tab>
     <ngl-tab *ngFor="let category of categories" (activate)="tabChange(category, 'active')" (deactivate)="tabChange(category, 'inactive')">
-      <ng-template ngl-tab-label>Category {{category.number}}</ng-template>
+      <ng-template ngl-tab-label>{{categoryHeading(category)}}</ng-template>
       <ng-template ngl-tab-content>
         <app-data-category [category]="category"></app-data-category>
       </ng-template>

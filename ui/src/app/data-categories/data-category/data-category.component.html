@@ -1,1 +1,20 @@
-{{category.number}}
+<div class="slds-grid slds-gutters">
+    <div class="slds-col slds-size_1-of-2">
+        <div class="carousel-container">
+            <ngl-carousel [(active)]="active" [autoScroll]="false">
+                <ngl-carousel-image [src]="barSrc()" header="Attribute Graph"
+                    description="All features of the category." alternativeText="Category features">
+                </ngl-carousel-image>
+                <ngl-carousel-image [src]="pieSrc()" header="Category Average Song Attributes"
+                    description="The average song attributes for this category." alternativeText="Category song attributes">
+                </ngl-carousel-image>
+                <ngl-carousel-image [src]="pieGenreSrc()" header="Category Song Genres"
+                    description="The song genres that comprise this category." alternativeText="Category song genres">
+                </ngl-carousel-image>
+            </ngl-carousel>
+        </div>
+    </div>
+    <div class="slds-col slds-size_1-of-2">
+        <span>blah blah</span>
+    </div>
+</div>
