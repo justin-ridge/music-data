@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { INglDatatableSort } from 'ng-lightning';
 import { SongService } from '../songs/song.service';
 import { Song } from '../songs/song';
-import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning';
 
 @Component({
   selector: 'app-view-data',
