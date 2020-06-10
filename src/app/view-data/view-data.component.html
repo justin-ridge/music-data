@@ -8,19 +8,61 @@
                     </span>
                 </h2>
             </div>
+            <div class="slds-text-title_caps-normal slds-m-bottom_x-small">Showing song(s) {{itemStart}} - {{itemEnd}} of
+                {{total}}
+            </div>
         </header>
     </div>
-    <div class="slds-card__body slds-card__body_inner">
-        <div class="slds-text-title_caps-normal slds-m-bottom_x-small">Showing songs {{itemStart}} - {{itemEnd}} of
-            {{total}}
+    <ngl-expandable-section title="Search" [(open)]="searchOpen" [collapsable]="collapsable">
+        <div *ngIf="showLimitWarning" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+            <span class="slds-assistive-text">warning</span>
+            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small">
+              <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+              </svg>
+            </span>
+            <h2>Search results are limited to 200 songs. If you don't see what you're looking for, try a more specific search.
+            </h2>
+          </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-grid_pull-padded slds-grid_vertical-align-center">
+                <div class="slds-col_padded">
+                    <ngl-input label="Artist Name" fieldLevelHelpTooltip="Enter an artist name"
+                        [error]="hasError ? error : null">
+                        <input ngl type="input" [(ngModel)]="searchArtist" placeholder="Artist Name"
+                            (keyup.enter)="search()">
+                    </ngl-input>
+                </div>
+                <div class="slds-col_padded">
+                    <ngl-input label="Song Name" fieldLevelHelpTooltip="Enter a song name"
+                        [error]="hasError ? error : null">
+                        <input ngl type="input" [(ngModel)]="searchName" placeholder="Song Name"
+                            (keyup.enter)="search()">
+                    </ngl-input>
+                </div>
+                <div class="slds-col_padded">
+                    <ngl-input label="Genre" fieldLevelHelpTooltip="Enter a genre" [error]="hasError ? error : null">
+                        <input ngl type="input" [(ngModel)]="searchGenre" placeholder="Genre" (keyup.enter)="search()">
+                    </ngl-input>
+                </div>
+            </div>
+            <div>
+                <button type="button" nglButton iconName="utility:search" (click)="search()">Search</button>
+                <button type="button" *ngIf="searchActive" nglButton (click)="clearSearch()">Clear Search</button>
+            </div>
         </div>
-        <ngl-pagination (pageChange)="changePage($event)" [(page)]="page" [total]="pageTotal" limit="5"
-            boundaryNumbers="1" #pagination></ngl-pagination>
-        Jump to: <input type="number" [(ngModel)]="page" (blur)="changePage($event.target.value)">
-        <div>
-            <button type="button" nglButton (click)="toggleDetails()">{{showDetailsText}}</button>
+    </ngl-expandable-section>
+    <ngl-expandable-section *ngIf="!searchActive" title="Navigate All Songs" [(open)]="navOpen" [collapsable]="collapsable">
+        <div class="slds-card__body slds-card__body_inner">
+            <ngl-pagination (pageChange)="changePage($event)" [(page)]="page" [total]="pageTotal" limit="5"
+                boundaryNumbers="1" #pagination></ngl-pagination>
+            Jump to page: <input class="pageInput" type="number" [(ngModel)]="page"
+                (blur)="changePage($event.target.value)">
+            <div>
+                <button type="button" nglButton (click)="toggleDetails()">{{showDetailsText}}</button>
+            </div>
         </div>
-    </div>
+    </ngl-expandable-section>
     <table class="slds-table_bordered slds-max-medium-table_stacked-horizontal" ngl-datatable [data]="songs"
         trackByKey="songid" [loading]="loading" [(sort)]="sort" (sortChange)="onSort($event)">
         <ngl-datatable-column heading="artist" key="artist" truncate sortable></ngl-datatable-column>
@@ -67,3 +109,4 @@
         <!-- No rows overlay-->
         <ng-template nglNoRowsOverlay>No data available in table!</ng-template>
     </table>
+</article>

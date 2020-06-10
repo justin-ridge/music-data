@@ -14,11 +14,20 @@ export class ViewDataComponent implements OnInit {
   public loading: boolean = false;
   public sort: INglDatatableSort = { key: 'rank', order: 'asc' };
   public showDetails: boolean = false;
+  public itemStart: string;
+  public itemEnd: string;
+  public hasError: boolean = false;
+  public error: string = 'You must enter at least one search criteria with more than 2 characters';
+  public collapsable: boolean = true;
+  public searchName: string = '';
+  public searchArtist: string = '';
+  public searchGenre: string = '';
+  public showLimitWarning: boolean = false;
+  public searchActive: boolean;
 
   total = 0;
   pageTotal = 0;
-  page: number = 1;
-  pageSize: number = 50;
+  limitAmount = 200;
 
   constructor(private songService: SongService) { }
 
@@ -35,16 +44,66 @@ export class ViewDataComponent implements OnInit {
     this.songService.songs$.subscribe((songs) => {
       this.songs = songs;
       this.loading = false;
+      if(this.songs.length === this.limitAmount) {
+        this.showLimitWarning = true;
+      } else {
+        this.showLimitWarning = false;
+      }
     });
 
+    this.songService.itemStart$.subscribe((val) => {
+      this.itemStart = val;
+    })
+
+    this.songService.itemEnd$.subscribe((val) => {
+      this.itemEnd = val;
+    })
+
     if(this.songs.length === 0) {
-      this.songService.getTotal();
-      this.songService.getPageTotal();
       this.getSongs('0');
     }
   }
 
-  onSort($event: INglDatatableSort) {
+  public get page(): number {
+    return this.songService.page;
+  }
+
+  public set page(val: number) {
+    this.songService.page = val;
+  }
+
+  public get navOpen(): boolean {
+    return this.songService.navOpen;
+  }
+
+  public set navOpen(val: boolean) {
+    this.songService.navOpen = val;
+  }
+
+  public get searchOpen(): boolean {
+    return this.songService.searchOpen;
+  }
+
+  public set searchOpen(val: boolean) {
+    this.songService.searchOpen = val;
+  }
+
+  public get pageSize(): number {
+    return SongService.pageSize;
+  }
+
+  public get showDetailsText(): string {
+    let text = ' Extra Details';
+    if(this.showDetails) {
+      text = 'Hide' + text;
+    } else {
+      text = 'Show' + text;
+    }
+
+    return text;
+  }
+
+  public onSort($event: INglDatatableSort) {
     const { key, order } = $event;
     this.songs.sort((a: any, b: any) => {
       let compare = 0;
@@ -67,32 +126,10 @@ export class ViewDataComponent implements OnInit {
     return val.toFixed(3);
   }
 
-  public get showDetailsText(): string {
-    let text = ' Extra Details';
-    if(this.showDetails) {
-      text = 'Hide' + text;
-    } else {
-      text = 'Show' + text;
-    }
-
-    return text;
-  }
-
-  private calcItemStart(): number {
-    return ((this.page - 1) * 50) + 1;
-  }
-
-  public get itemStart(): string {
-    return this.calcItemStart().toString();
-  }
-
-  public get itemEnd(): string {
-    return (this.calcItemStart() + this.songs.length - 1).toString();
-  }
-
   public getSongs(page: string) {
     this.loading = true;
     this.songService.getSongs(page);
+    this.searchActive = false;
   }
 
   public toggleDetails() {
@@ -112,5 +149,47 @@ export class ViewDataComponent implements OnInit {
     }
 
     return 'default';
+  }
+
+  public search(): void {
+    if(!this.validateSearch()) {
+      return;
+    }
+    
+    this.loading = true;
+    this.songService.search(this.searchArtist, this.searchName, this.searchGenre);
+    this.searchActive = true;
+  }
+
+  public clearSearch(): void {
+    this.searchArtist = '';
+    this.searchName = '';
+    this.searchGenre = '';
+    this.page = 1;
+    this.getSongs('0');
+  }
+
+  private validateSearch(): boolean {
+    this.hasError = false;
+    const params = [this.searchArtist, this.searchGenre, this.searchName];
+    if(!this.hasSearchValue(params)) {
+      this.hasError = true;
+      return false;
+    }
+
+    return true;
+  }
+
+  private hasSearchValue(params: string[]): boolean {
+    let hasValue = false;
+    for (let param in params) {
+      console.log(param);
+      if(params[param].length > 2) {
+        hasValue = true;
+        break;
+      }
+    }
+
+    return hasValue;
   }
 }
