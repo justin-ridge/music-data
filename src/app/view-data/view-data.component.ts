@@ -92,17 +92,6 @@ export class ViewDataComponent implements OnInit {
     return SongService.pageSize;
   }
 
-  public get showDetailsText(): string {
-    let text = ' Extra Details';
-    if(this.showDetails) {
-      text = 'Hide' + text;
-    } else {
-      text = 'Show' + text;
-    }
-
-    return text;
-  }
-
   public onSort($event: INglDatatableSort) {
     const { key, order } = $event;
     this.songs.sort((a: any, b: any) => {
@@ -132,8 +121,8 @@ export class ViewDataComponent implements OnInit {
     this.searchActive = false;
   }
 
-  public toggleDetails() {
-    this.showDetails = !this.showDetails;
+  public toggleDetails(event) {
+    this.showDetails = event.currentTarget.checked;
   }
 
   public changePage(event) {
