@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { Popularity } from './popularity';
 import { PopularityService } from './popularity.service';
+import { Prediction } from './prediction';
 
 @Component({
   selector: 'app-popularity-prediction',
@@ -10,13 +11,14 @@ import { PopularityService } from './popularity.service';
 export class PopularityPredictionComponent implements OnInit, AfterViewInit {
 
   public pop: Popularity;
+  public prediction: Prediction;
 
   constructor(private popularityService: PopularityService) { }
 
   ngOnInit(): void {
     this.pop = this.initPopularity();
     this.popularityService.predict$.subscribe((result) => {
-      console.log(result);
+      this.prediction = result;
     })
   }
 
@@ -31,7 +33,20 @@ export class PopularityPredictionComponent implements OnInit, AfterViewInit {
     "Soundtrack", "World"];
 
   public randomize(): void {
+    this.popularityService.clearPrediction();
     this.pop = this.getRandomPopularity();
+  }
+  
+  public get hasPrediction(): boolean {
+    return this.prediction && this.prediction.result && this.prediction.result.length > 0;
+  }
+
+  public get predictionText(): string {
+    if(this.prediction.result == '1') {
+      return 'Popular';
+    } else {
+      return 'Unpopular';
+    }
   }
 
   private initPopularity(): Popularity {

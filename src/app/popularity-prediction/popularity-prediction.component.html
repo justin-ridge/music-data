@@ -16,20 +16,20 @@
     </div>
     <div class="slds-card__body slds-card__body_inner">
         <div class="slds-text-heading_medium">Song Attributes</div>
-        <button type="button" class="slds-button slds-button_brand" nglButton 
-        (click)="randomize()">Randomize</button>
-        <button type="button" class="slds-button slds-button_brand" nglButton 
-        (click)="predict()">Predict</button>
+        <button type="button" class="slds-button slds-button_brand" nglButton (click)="randomize()">Randomize</button>
+        <button type="button" class="slds-button slds-button_brand" nglButton (click)="predict()">Predict</button>
+        <div class="slds-text-heading_small" *ngIf="hasPrediction">The model predicts that this song would be:
+            {{predictionText}}</div>
         <div class="attribute-sliders">
             <div class="slds-grid slds-grid_pull-padded slds-grid_vertical-align-center slds-m-top_large">
                 <div class="slds-col_padded">
-                  <ngl-select label="Genre">
-                    <select ngl [(ngModel)]="pop.genre">
-                      <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
-                    </select>
-                  </ngl-select>
+                    <ngl-select label="Genre">
+                        <select ngl [(ngModel)]="pop.genre">
+                            <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
+                        </select>
+                    </ngl-select>
                 </div>
-              </div>
+            </div>
             <ngl-slider label="Acousticness" [(value)]="pop.acousticness" [min]="0.00" [max]="1.00" [step]=".001">
             </ngl-slider>
             <ngl-slider label="Danceability" [(value)]="pop.danceability" [min]="0.00" [max]="1.00" [step]=".001">
@@ -38,7 +38,8 @@
             </ngl-slider>
             <ngl-slider label="Energy" [(value)]="pop.energy" [min]="0.00" [max]="1.00" [step]=".001">
             </ngl-slider>
-            <ngl-slider label="Instrumentalness" [(value)]="pop.instrumentalness" [min]="0.00" [max]="1.00" [step]=".001">
+            <ngl-slider label="Instrumentalness" [(value)]="pop.instrumentalness" [min]="0.00" [max]="1.00"
+                [step]=".001">
             </ngl-slider>
             <ngl-slider label="Liveness" [(value)]="pop.liveness" [min]="0.00" [max]="1.00" [step]=".001">
             </ngl-slider>

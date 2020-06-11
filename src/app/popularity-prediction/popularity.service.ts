@@ -27,4 +27,8 @@ export class PopularityService {
         this.predictBehavior.next(result);
       });
   }
+
+  public clearPrediction(): void {
+    this.predictBehavior.next(null);
+  }
 }
