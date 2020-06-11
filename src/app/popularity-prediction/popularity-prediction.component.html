@@ -1,1 +1,51 @@
-<p>popularity-prediction works!</p>
+<article class="slds-card">
+    <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span class="slds-card__header-link slds-truncate" title="Popularity Prediction">
+                        Popularity Prediction
+                    </span>
+                </h2>
+                <p>
+                    Using a Naive Bayes classification model trained on the existing song data, predict the popularity
+                    of a new song by entering its attributes.
+                </p>
+            </div>
+        </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+        <div class="slds-text-heading_medium">Song Attributes</div>
+        <button type="button" class="slds-button slds-button_brand" nglButton 
+        (click)="randomize()">Randomize</button>
+        <div class="attribute-sliders">
+            <div class="slds-grid slds-grid_pull-padded slds-grid_vertical-align-center slds-m-top_large">
+                <div class="slds-col_padded">
+                  <ngl-select label="Genre">
+                    <select ngl [(ngModel)]="genre">
+                      <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
+                    </select>
+                  </ngl-select>
+                </div>
+              </div>
+            <ngl-slider label="Acousticness" [(value)]="acousticness" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Danceability" [(value)]="danceability" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Duration" [(value)]="duration_ms" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Energy" [(value)]="energy" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Instrumentalness" [(value)]="instrumentalness" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Liveness" [(value)]="liveness" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Loudness" [(value)]="loudness" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Speechiness" [(value)]="speechiness" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+            <ngl-slider label="Valence" [(value)]="valence" [min]="0.00" [max]="1.00" [step]=".001">
+            </ngl-slider>
+        </div>
+    </div>
+</article>

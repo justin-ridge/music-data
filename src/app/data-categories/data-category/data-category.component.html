@@ -9,7 +9,8 @@
     </div>
     <div class="slds-col">
         <div class="slds-button-group" [(nglPick)]="active" nglPickActiveClass="slds-button_brand" role="group">
-            <button *ngFor="let item of categoryGraphs" type="button" nglButton [nglPickOption]="item.index">{{item.header}}</button>
+            <button *ngFor="let item of categoryGraphs" type="button" nglButton
+                [nglPickOption]="item.index">{{item.header}}</button>
         </div>
         <div class="slds-text-heading_large">Category {{(category.number + 1)}}</div>
         <div class="slds-text-heading_medium">Characterization</div>
