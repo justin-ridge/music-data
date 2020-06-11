@@ -1,28 +1,28 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
+import { Popularity } from './popularity';
+import { PopularityService } from './popularity.service';
 
 @Component({
   selector: 'app-popularity-prediction',
   templateUrl: './popularity-prediction.component.html',
   styleUrls: ['./popularity-prediction.component.scss']
 })
-export class PopularityPredictionComponent implements AfterViewInit {
+export class PopularityPredictionComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  public pop: Popularity;
+
+  constructor(private popularityService: PopularityService) { }
+
+  ngOnInit(): void {
+    this.pop = this.initPopularity();
+    this.popularityService.predict$.subscribe((result) => {
+      console.log(result);
+    })
+  }
 
   ngAfterViewInit(): void {
     this.randomize();
   }
-
-  public acousticness: number;
-  public danceability: number;
-  public duration_ms: number;
-  public energy: number;
-  public instrumentalness: number;
-  public liveness: number;
-  public loudness: number;
-  public speechiness: number;
-  public valence: number;
-  public genre: string;
 
   public genres = ["A Capella", "Alternative", "Anime", "Blues", "Childrens Music", "Classical",
     "Comedy", "Country", "Dance", "Electronic", "Folk", "Hip-Hop",
@@ -31,17 +31,43 @@ export class PopularityPredictionComponent implements AfterViewInit {
     "Soundtrack", "World"];
 
   public randomize(): void {
-    this.acousticness = this.getRandomVal();
-    this.danceability = this.getRandomVal();
-    this.duration_ms = this.getRandomVal();
-    this.energy = this.getRandomVal();
-    this.instrumentalness = this.getRandomVal();
-    this.liveness = this.getRandomVal();
-    this.loudness = this.getRandomVal();
-    this.speechiness = this.getRandomVal();
-    this.valence = this.getRandomVal();
-    this.genre = this.getRandomGenre();
-    console.log(this.genre);
+    this.pop = this.getRandomPopularity();
+  }
+
+  private initPopularity(): Popularity {
+    return {
+      acousticness: 0,
+      danceability: 0,
+      duration_ms: 0,
+      energy: 0,
+      instrumentalness: 0,
+      liveness: 0,
+      loudness: 0,
+      speechiness: 0,
+      valence: 0,
+      genre: ''
+    };
+  }
+
+  private getRandomPopularity(): Popularity {
+    const pop: Popularity = {
+      acousticness: this.getRandomVal(),
+      danceability: this.getRandomVal(),
+      duration_ms: this.getRandomVal(),
+      energy: this.getRandomVal(),
+      instrumentalness: this.getRandomVal(),
+      liveness: this.getRandomVal(),
+      loudness: this.getRandomVal(),
+      speechiness: this.getRandomVal(),
+      valence: this.getRandomVal(),
+      genre: this.getRandomGenre()
+    };
+
+    return pop;
+  }
+
+  public predict(): void {
+    this.popularityService.predict(this.pop);
   }
 
   private getRandomVal(): number {
@@ -49,7 +75,7 @@ export class PopularityPredictionComponent implements AfterViewInit {
   }
 
   private getRandomGenre(): string {
-    const index = Math.floor(Math.random()*this.genres.length)
+    const index = Math.floor(Math.random() * this.genres.length)
     return this.genres[index];
   }
 }
