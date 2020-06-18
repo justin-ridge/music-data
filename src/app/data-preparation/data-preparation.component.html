@@ -1,1 +1,10 @@
-<p>data-preparation works!</p>
+<div class="form-group">
+    <label for="file">Choose File</label>
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)">
+</div>
+<button (click)="uploadFileToActivity()">Upload</button>
+<div *ngIf="hasUrl">
+    <a #link [href]="objectUrl" target="_blank" rel="noopener" download="clean_data.zip">Download Cleaned Data</a>
+</div>
