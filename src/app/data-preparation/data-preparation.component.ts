@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FileService } from './file.service';
+import { ModelResponse } from '../model-response';
 
 @Component({
   selector: 'app-data-preparation',
@@ -10,14 +11,16 @@ export class DataPreparationComponent {
 
   public processing: boolean = false;
   private file: File = null;
-  private file_valid: boolean = true;
+  public file_valid: boolean = true;
   public mode: string = 'randomforest';
+  public model: ModelResponse = null;
 
   constructor(private fileService: FileService) { }
 
   public handleFileInput(files: FileList) {
     const file = files.item(0);
     if (this.validateFile(file)) {
+      this.model = null;
       this.file_valid = true;
       this.file = file;
     } else {
@@ -26,8 +29,8 @@ export class DataPreparationComponent {
     }
   }
 
-  public onModeChange(value: string) {
-    this.mode = value;
+  public get hasModel(): boolean {
+    return this.model !== null;
   }
 
   public getCleanData() {
@@ -72,13 +75,14 @@ export class DataPreparationComponent {
       return;
     }
 
+    this.model = null;
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.processing = true;
       this.fileService.trainModel(fileReader.result.toString(), this.mode)
         .subscribe(
-          (response: any) => {
-            console.log(response)
+          (response: ModelResponse) => {
+            this.model = response
           },
           (error: any) => {
             this.handleError(error);
@@ -97,6 +101,10 @@ export class DataPreparationComponent {
   }
 
   private validateFile(file: File): boolean {
+    if(file == null) {
+      return false;
+    }
+    
     const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
     if (ext.toLowerCase() !== 'csv') {
       return false;

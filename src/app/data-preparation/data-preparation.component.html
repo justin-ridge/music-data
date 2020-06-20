@@ -7,18 +7,11 @@
 </div>
 <div>
     <button [disabled]="!file_enabled" (click)="trainModel()">Train Model</button>
-    <label>
-        <input class="form-check-input" type="radio" value="randomforest" name="mode" checked="checked"
-            (change)="onModeChange($event.target.value)" />
-        Random Forest
-    </label>
-    <label>
-        <input class="form-check-input" type="radio" value="naivebayes" name="mode"
-            (change)="onModeChange($event.target.value)" />
-        Naive Bayes
-    </label>
 </div>
 <div *ngIf="!file_valid">Error: The file must be a valid .CSV file and &lt;=5MB in size</div>
+<div *ngIf="hasModel">
+    <app-data-model [model]="model"></app-data-model>
+</div>
 <div *ngIf="processing" style="height:6rem">
     <div class="slds-spinner_container">
         <div role="status" class="slds-spinner slds-spinner_medium">

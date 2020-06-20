@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { retry, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ModelResponse } from '../model-response';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,11 @@ export class FileService {
       JSON.stringify(postData),
       { headers: headers, responseType: 'blob' as 'json' })
       .pipe(
-        retry(1),
         catchError(this.handleError)
       );
   }
 
-  public trainModel(fileContent: string, mode: string) {
+  public trainModel(fileContent: string, mode: string): Observable<ModelResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -41,11 +41,10 @@ export class FileService {
     }
 
     const url = environment.apiUrl + 'api/songs/' + mode;
-    return this.http.post(
+    return this.http.post<ModelResponse>(
       url,
       JSON.stringify(postData),
       { headers: headers }).pipe(
-        retry(1),
         catchError(this.handleError)
       );
   }

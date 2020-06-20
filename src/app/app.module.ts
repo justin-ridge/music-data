@@ -18,6 +18,7 @@ import { HomeItemsComponent } from './home/home-items/home-items.component';
 import { HomeItemComponent } from './home/home-item/home-item.component';
 import { DataCategoryComponent } from './data-categories/data-category/data-category.component';
 import { OverviewComponent } from './data-categories/overview/overview.component';
+import { DataModelComponent } from './data-model/data-model.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { OverviewComponent } from './data-categories/overview/overview.component
     HomeItemsComponent,
     HomeItemComponent,
     DataCategoryComponent,
-    OverviewComponent
+    OverviewComponent,
+    DataModelComponent
   ],
   imports: [
     BrowserModule,
