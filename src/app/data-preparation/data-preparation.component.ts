@@ -14,19 +14,26 @@ export class DataPreparationComponent {
   public file_valid: boolean = true;
   public mode: string = 'randomforest';
   public model: ModelResponse = null;
+  public errorText: string = '';
 
   constructor(private fileService: FileService) { }
 
   public handleFileInput(files: FileList) {
     const file = files.item(0);
+    this.errorText = '';
     if (this.validateFile(file)) {
       this.model = null;
       this.file_valid = true;
       this.file = file;
     } else {
+      this.errorText = 'Error: The file must be a valid .CSV file and <= 5MB in size';
       this.file_valid = false;
       this.file = null;
     }
+  }
+
+  public get hasError(): boolean {
+    return this.errorText.length > 0;
   }
 
   public get hasModel(): boolean {
@@ -38,7 +45,7 @@ export class DataPreparationComponent {
       return;
     }
 
-    let fileReader = new FileReader();
+    const fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.processing = true;
       this.fileService.prepData(fileReader.result.toString())
@@ -66,7 +73,7 @@ export class DataPreparationComponent {
   }
 
   private handleError(error) {
-    console.log(error);
+    this.errorText = error;
     this.processing = false;
   }
 
@@ -76,6 +83,7 @@ export class DataPreparationComponent {
     }
 
     this.model = null;
+    this.errorText = '';
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.processing = true;
@@ -104,7 +112,7 @@ export class DataPreparationComponent {
     if(file == null) {
       return false;
     }
-    
+
     const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
     if (ext.toLowerCase() !== 'csv') {
       return false;

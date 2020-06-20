@@ -12,6 +12,7 @@ export class PopularityPredictionComponent implements OnInit, AfterViewInit {
 
   public pop: Popularity;
   public prediction: Prediction;
+  public processing: boolean;
 
   constructor(private popularityService: PopularityService) { }
 
@@ -19,6 +20,7 @@ export class PopularityPredictionComponent implements OnInit, AfterViewInit {
     this.pop = this.initPopularity();
     this.popularityService.predict$.subscribe((result) => {
       this.prediction = result;
+      this.processing = false;
     })
   }
 
@@ -82,6 +84,7 @@ export class PopularityPredictionComponent implements OnInit, AfterViewInit {
   }
 
   public predict(): void {
+    this.processing = true;
     this.popularityService.predict(this.pop);
   }
 

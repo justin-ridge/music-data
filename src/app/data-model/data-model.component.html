@@ -1,9 +1,22 @@
-<div>
-    <img [src]="sanitize(model.images.importance)">
-</div>
-<div>
-    <img [src]="sanitize(model.images.labels)">
-</div>
-<div>
-    <img [src]="sanitize(model.images.mean)">
+<div class="model">
+    <div class="slds-text-heading_small">
+        Number of songs used for training:
+        <span class="stat">{{model.trainedFields}}</span>
+    </div>
+    <div class="slds-text-heading_small">
+        Number of songs tested after training:
+        <span class="stat">{{model.testedFields}}</span>
+    </div>
+    <div class="slds-text-heading_small">
+        Overall model accuracy score:
+        <span class="stat">{{model.score}}</span>
+    </div>
+    <div class="model-images">
+        <ngl-carousel [(active)]="active">
+          <ngl-carousel-image [src]="sanitize(model.images.importance)" header="Relative Feature Importance" description="Features considered by the model, weighted by their importance (higher value => more important)."></ngl-carousel-image>
+          <ngl-carousel-image [src]="sanitize(model.images.labels)" header="Target Frequency" description="Occurrence of the target per song (a target of 1 => song is popular)."></ngl-carousel-image>
+          <ngl-carousel-image [src]="sanitize(model.images.mean)" header="Feature Proportions" description="Using the mean values of each feature, this shows the relative proportion of its occurrence among the data set."></ngl-carousel-image>
+        </ngl-carousel>
+      </div>
+    <div>
 </div>

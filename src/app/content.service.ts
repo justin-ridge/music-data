@@ -50,11 +50,11 @@ export class ContentService {
       svg: '/assets/icons/standard-sprite/svg/symbols.svg#customer_lifecycle_analytics'
     },
     {
-      title: 'Data Preparation',
-      path: 'data-preparation',
+      title: 'Data Experimentation',
+      path: 'data-experiments',
       component: DataPreparationComponent,
       isContentItem: true,
-      description: 'Clean and standardize input song data to prepare for data analysis.',
+      description: 'Upload new song data to clean and standardize its features or generate new data models.',
       icon: 'slds-icon-standard-data-streams',
       svg: '/assets/icons/standard-sprite/svg/symbols.svg#data_streams'
     }

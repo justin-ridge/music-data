@@ -50,13 +50,24 @@ export class FileService {
   }
 
   handleError(error) {
+    console.log(error)
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      let err = error.error;
+      if (error.error instanceof Blob) {
+        const reader = new FileReader()
+        err = reader.readAsText(error.error);
+      }
+
+      if(!err || err.length < 1) {
+        err = error.message;
+      }
+
+      console.log('err:' + err)
+      errorMessage = err;
     }
 
     return throwError(errorMessage);

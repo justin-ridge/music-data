@@ -8,7 +8,7 @@
                     </span>
                 </h2>
                 <p>
-                    Using a Naive Bayes classification model trained on the existing song data, predict the popularity
+                    Using a Naive Bayes classification model trained on the existing song data (.852 accuracy), predict the popularity
                     of a new song by entering its attributes.
                 </p>
             </div>
@@ -52,3 +52,12 @@
         </div>
     </div>
 </article>
+<div *ngIf="processing" style="height:6rem">
+    <div class="slds-spinner_container">
+        <div role="status" class="slds-spinner slds-spinner_medium">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+</div>

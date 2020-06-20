@@ -5,7 +5,7 @@ export class ModelResponse {
         mean: string
     };
     score: number;
-    testedField: number;
+    testedFields: number;
     trainedFields: number;
     mislabeled: string;
 }
