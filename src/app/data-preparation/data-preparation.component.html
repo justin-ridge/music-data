@@ -16,6 +16,7 @@
     </div>
     <div class="slds-card__body slds-card__body_inner">
         <div class="slds-text-heading_medium">Process new Song Data</div>
+        <ngl-alert class="slds-m-top_small" variant="warning">Depending on the size of your input data, training a new model can take up to 30 seconds. Please be patient.</ngl-alert>
         <ngl-alert *ngIf="hasError" class="slds-m-top_small" variant="error">{{errorText}}</ngl-alert>
         <div class="form-group action">
             <label for="file">Choose File</label>
