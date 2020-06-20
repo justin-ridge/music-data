@@ -8,18 +8,37 @@ import { FileService } from './file.service';
 })
 export class DataPreparationComponent {
 
+  public processing: boolean = false;
   private file: File = null;
+  private file_valid: boolean = true;
+  public mode: string = 'randomforest';
 
   constructor(private fileService: FileService) { }
 
   public handleFileInput(files: FileList) {
-    this.file = files.item(0);
+    const file = files.item(0);
+    if (this.validateFile(file)) {
+      this.file_valid = true;
+      this.file = file;
+    } else {
+      this.file_valid = false;
+      this.file = null;
+    }
   }
 
-  uploadFileToActivity() {
+  public onModeChange(value: string) {
+    this.mode = value;
+  }
+
+  public getCleanData() {
+    if (!this.file_enabled || this.processing) {
+      return;
+    }
+
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
-      this.fileService.postFile(fileReader.result.toString())
+      this.processing = true;
+      this.fileService.prepData(fileReader.result.toString())
         .subscribe(
           (response: any) => {
             let dataType = response.type;
@@ -30,10 +49,63 @@ export class DataPreparationComponent {
             downloadLink.setAttribute('download', 'clean_data.zip');
             document.body.appendChild(downloadLink);
             downloadLink.click();
+          },
+          (error: any) => {
+            this.handleError(error);
+          },
+          () => {
+            this.processing = false;
           }
         )
     }
 
     fileReader.readAsText(this.file);
+  }
+
+  private handleError(error) {
+    console.log(error);
+    this.processing = false;
+  }
+
+  public trainModel() {
+    if (!this.file_enabled || this.processing) {
+      return;
+    }
+
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.processing = true;
+      this.fileService.trainModel(fileReader.result.toString(), this.mode)
+        .subscribe(
+          (response: any) => {
+            console.log(response)
+          },
+          (error: any) => {
+            this.handleError(error);
+          },
+          () => {
+            this.processing = false;
+          }
+        )
+    }
+
+    fileReader.readAsText(this.file);
+  }
+
+  public get file_enabled(): boolean {
+    return this.file !== null && this.file_valid;
+  }
+
+  private validateFile(file: File): boolean {
+    const ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() !== 'csv') {
+      return false;
+    }
+
+    if(file.size/1024/1024 > 5) {
+      return false;
+    }
+
+    return true;
   }
 }
