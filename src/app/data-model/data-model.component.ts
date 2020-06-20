@@ -10,6 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class DataModelComponent implements OnInit {
 
   @Input() model: ModelResponse;
+  public active: number = 0;
 
   constructor(private _sanitizer: DomSanitizer) { }
 
